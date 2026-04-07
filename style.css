@@ -1,0 +1,76 @@
+/* ===== Body & Fonts ===== */
+body {
+  background-color: #f4f6f8; /* very light grey */
+  color: #1e2a38;           /* dark blue-grey text */
+  font-family: Arial, Helvetica, sans-serif;
+  text-align: center;
+  margin: 0;
+  padding: 20px;
+}
+
+/* ===== Panels ===== */
+.panel {
+  border: 1px solid #c0c7d3;   /* soft grey border */
+  padding: 20px;
+  margin: 15px;
+  display: inline-block;
+  min-width: 220px;
+  border-radius: 8px;
+  background-color: #ffffff;    /* white panel background */
+  box-shadow: 0 4px 10px rgba(0,0,0,0.05); /* subtle shadow */
+}
+
+/* ===== Buttons ===== */
+button {
+  margin: 10px;
+  padding: 12px 22px;
+  border: 1px solid #6c7b95;    /* blue-grey border */
+  background-color: #e4e9f0;     /* light grey-blue background */
+  color: #1e2a38;                /* dark text */
+  font-weight: bold;
+  font-size: 16px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+button:hover {
+  background-color: #6c7b95;     /* dark blue-grey hover */
+  color: #ffffff;                /* white text on hover */
+}
+
+/* ===== Hidden class ===== */
+.hidden {
+  display: none;
+}
+
+/* ===== Interface container ===== */
+#interface {
+  margin-top: 25px;
+}
+
+/* ===== Phase text (like PAUSE or instructions) ===== */
+#phaseText {
+  margin: 20px auto;
+  font-size: 18px;
+  color: #1e2a38;
+}
+
+/* ===== Inputs ===== */
+input {
+  padding: 6px 10px;
+  font-size: 16px;
+  margin: 5px;
+  width: 120px;
+  text-align: center;
+  border: 1px solid #c0c7d3;
+  border-radius: 5px;
+}
+
+/* ===== Numeric displays (temperature, pressure, flow, action) ===== */
+.display {
+  font-size: 20px;
+  margin: 10px 0;
+  color: #1e2a38;
+  font-weight: bold;
+}

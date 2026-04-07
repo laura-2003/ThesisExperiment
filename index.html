@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Reactor Simulation</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <h1>Reactor Control Interface</h1>
+  <h2 id="phaseText">Press Start</h2>
+  <h3 id="confidenceText"></h3>
+
+  <!-- Confidence Display -->
+  <div id="percentageContainer">
+      Confidence: <span id="percentage">0%</span>
+  </div>
+
+  <div id="interface" class="hidden">
+    <div class="panel">Temperature: <span id="temp">0</span></div>
+    <div class="panel">Pressure: <span id="pressure">0</span></div>
+    <div class="panel">Flow: <span id="flow">0</span></div>
+    <div class="panel">Action: <span id="action">-</span></div>
+
+    <button id="increaseBtn">Increase Flow</button>
+    <button id="decreaseBtn">Decrease Flow</button>
+  </div>
+
+  <button id="startBtn">Start</button>
+
+  <script src="script.js"></script>
+</body>
+</html>
