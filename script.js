@@ -208,15 +208,71 @@ function logClick(type){
   });
 }
 
-function freezeProbe(){
+// ================= Freeze Questions =================
+let firstFreezeQuestions = [
+  "What is the current temperature?",
+  "What is the current coolant flow?",
+  "Is the system currently increasing, decreasing, or stable?"
+];
+
+let secondFreezeQuestions = [
+  "What is the current temperature?",
+  "What is the current pressure?",
+  "Is the system currently increasing, decreasing, or stable?"
+];
+
+
+function freezeProbe() {
   clearInterval(interval);
   interfaceEl.classList.add("hidden");
-  phaseText.innerHTML=`
-    <h2>PAUSE</h2>
-    <p>Please answer the questions verbally. Click continue when ready.</p>
-    <button id="resumeBtn">Continue</button>`;
-  dataLog.push({time: Date.now(), event:"freeze", step:index});
-  document.getElementById("resumeBtn").addEventListener("click", resumeAfterPause);
+
+  let questions = [];
+  if (triggeredFreezes.length === 0) {
+    questions = firstFreezeQuestions;
+  } else if (triggeredFreezes.length === 1) {
+    questions = secondFreezeQuestions;
+  }
+
+  // Build form for participant answers
+  let html = `<h2>PAUSE</h2><p>Please answer the following questions:</p><form id="freezeForm">`;
+  questions.forEach((q, i) => {
+    html += `
+      <label for="answer${i}">${q}</label><br>
+      <input type="text" id="answer${i}" name="answer${i}" style="width: 100%; margin-bottom: 10px;"><br>`;
+  });
+  html += `<button type="submit">Submit Answers</button></form>`;
+  phaseText.innerHTML = html;
+
+  // Log the freeze event
+  dataLog.push({ 
+    time: Date.now(), 
+    event: "freeze", 
+    step: index, 
+    freezeNumber: triggeredFreezes.length + 1 
+  });
+
+  // Handle form submission
+  document.getElementById("freezeForm").addEventListener("submit", function(e) {
+    e.preventDefault();
+
+    let answers = [];
+    questions.forEach((q, i) => {
+      let value = document.getElementById(`answer${i}`).value;
+      answers.push({ question: q, answer: value });
+    });
+
+    // Log the participant answers
+    dataLog.push({ 
+      time: Date.now(), 
+      event: "freeze_answers", 
+      step: index, 
+      freezeNumber: triggeredFreezes.length + 1, 
+      answers: answers 
+    });
+
+    // Resume the experiment
+    resumeAfterPause();
+  });
 }
 
 function resumeAfterPause(){
