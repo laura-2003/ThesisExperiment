@@ -128,7 +128,7 @@ function updateSystem(){
   if(freezeMoments.includes(index) && !triggeredFreezes.includes(index)){
     triggeredFreezes.push(index);
     isPaused = true;
-    freezeProbe();
+    freezeProbe(triggeredFreezes.length);
     return;
   }
 
@@ -160,7 +160,7 @@ function updateSystem(){
     correctAction: step.correctAction
   });
 
-  index = Math.floor((Date.now() - experimentStartTime) / INTERVAL_MS);
+  index++;
 }
 
 function increaseFlow(){ 
@@ -222,19 +222,20 @@ let secondFreezeQuestions = [
 ];
 
 
-function freezeProbe() {
+function freezeProbe(freezeNumber) {
   clearInterval(interval);
   interfaceEl.classList.add("hidden");
 
   let questions = [];
-  if (triggeredFreezes.length === 0) {
+  if (freezeNumber === 1) {
     questions = firstFreezeQuestions;
-  } else if (triggeredFreezes.length === 1) {
+  } else if (freezeNumber === 2) {
     questions = secondFreezeQuestions;
   }
 
-  // Build form for participant answers
-  let html = `<h2>PAUSE</h2><p>Please answer the following questions:</p><form id="freezeForm">`;
+  let html = `<h2>PAUSE</h2>
+  <p>Please answer the following questions:</p>
+  <form id="freezeForm" autocomplete="off">`;
   questions.forEach((q, i) => {
     html += `
       <label for="answer${i}">${q}</label><br>
@@ -243,15 +244,13 @@ function freezeProbe() {
   html += `<button type="submit">Submit Answers</button></form>`;
   phaseText.innerHTML = html;
 
-  // Log the freeze event
   dataLog.push({ 
     time: Date.now(), 
     event: "freeze", 
     step: index, 
-    freezeNumber: triggeredFreezes.length + 1 
+    freezeNumber: freezeNumber
   });
 
-  // Handle form submission
   document.getElementById("freezeForm").addEventListener("submit", function(e) {
     e.preventDefault();
 
@@ -261,16 +260,14 @@ function freezeProbe() {
       answers.push({ question: q, answer: value });
     });
 
-    // Log the participant answers
     dataLog.push({ 
       time: Date.now(), 
       event: "freeze_answers", 
       step: index, 
-      freezeNumber: triggeredFreezes.length + 1, 
+      freezeNumber: freezeNumber, 
       answers: answers 
     });
 
-    // Resume the experiment
     resumeAfterPause();
   });
 }
