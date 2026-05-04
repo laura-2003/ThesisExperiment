@@ -208,17 +208,18 @@ function logClick(type){
   });
 }
 
-// ================= Freeze Questions =================
 let firstFreezeQuestions = [
   "What is the current temperature?",
   "What is the current coolant flow?",
-  "Is the system currently increasing, decreasing, or stable?"
+  "Is the system currently increasing, decreasing, or stable?",
+  "What will the core temperature do in 10 seconds: be higher, lower, or the same?"
 ];
 
 let secondFreezeQuestions = [
   "What is the current temperature?",
   "What is the current pressure?",
-  "Is the system currently increasing, decreasing, or stable?"
+  "Is the system currently increasing, decreasing, or stable?",
+  "What will the core temperature do in 10 seconds: be higher, lower, or the same?"
 ];
 
 
